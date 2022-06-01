@@ -1,0 +1,27 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: SPRINGCLOUD-CONSUMER-LOADBALANCE-RIBBON-CUSTOM-STRATEGY-CONFIGURATION-ORDER80
+  devtools:
+    restart:
+      enabled: true
+  logging:
+    level: info
+  cloud:
+    zookeeper:
+      connect-string: 192.168.0.2:2181
+
+#服务提供方注册名称
+SPRINGCLOUD-PROVIDER-PAYMENT-SERVICE-CLUSTER:  #服务提供方名称
+  ribbon:
+    NFLoadBalancerRuleClassName: org.openatom.springcloud.loadbalance.MyRandomRule    #Ribbon负载均衡规则类所在的路径,自带七种规则,也可以是自定位规则的类所在的路径
+
+#服务提供方信息
+service:
+  provider:
+    name: SPRINGCLOUD-PROVIDER-PAYMENT-SERVICE-CLUSTER  #服务提供方名称
+    url: http://${service.provider.name} #服务提供方调用地址
+
+
