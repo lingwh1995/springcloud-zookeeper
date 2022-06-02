@@ -27,10 +27,14 @@
         <module>springcloud-consumer-loadbalance-openfeign-configuration-order80</module>
         <!--Zookeeper版服务消费者:1.使用OpenFeign实现负载均衡 2.Java硬编码方式实现负载均衡算法替换-->
         <module>springcloud-consumer-loadbalance-openfeign-hardcore-order80</module>
-        <!--Zookeeper版服务提供者集群:服务提供者节点1-8003节点-->
+        <!--Zookeeper版服务消费者:1.使用OpenFeign实现负载均衡 2.Java硬编码方式实现负载均衡算法替换 3.加入了Hystrix-->
+        <module>springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80</module>
+        <!--Zookeeper版服务提供者集群:服务提供者节点1-8001节点-->
         <module>springcloud-provider-cluster-node-payment8001</module>
-        <!--Zookeeper版服务提供者集群:服务提供者节点2-8004节点-->
-        <module>springcloud-provider-cluster-node-payment8001</module>
+        <!--Zookeeper版服务提供者集群:服务提供者节点2-8002节点-->
+        <module>springcloud-provider-cluster-node-payment8002</module>
+        <!--Zookeeper版服务提供者集群:服务提供者节点3-8003节点 3.加入了Hystrix-->
+        <module>springcloud-provider-hystrix-cluster-node-payment8003</module>
     </modules>
 
     <!-- 统一管理jar包版本 -->

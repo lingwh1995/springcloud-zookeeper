@@ -31,15 +31,8 @@ public class OrderConsumerController {
         return paymentServiceOpenFeign.getPaymentById(id);
     }
 
-    @GetMapping("/consumer/payment/feign/timeout")
-    public String paymentFeignTimeout() {
-        return paymentServiceOpenFeign.paymentFeignTimeout();
+    @GetMapping("/consumer/payment/openfeign/timeout")
+    public String getPaymentByIdOpenFeignTimeout() {
+        return paymentServiceOpenFeign.getPaymentByIdTimeout();
     }
-    // ====================> zipkin+sleuth
-//    @GetMapping("/consumer/payment/zipkin")
-//    public String paymentZipkin()
-//    {
-//        String result = restTemplate.getForObject("http://localhost:8001"+"/payment/zipkin/", String.class);
-//        return result;
-//    }
 }
