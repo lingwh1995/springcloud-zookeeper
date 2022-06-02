@@ -35,7 +35,7 @@ public class OrderConsumerController {
     }
 
     @GetMapping("/consumer/payment/openfeign/timeout")
-    public String getPaymentByIdOpenFeignTimeout() {
+    public String getPaymentByIdTimeout() {
         return paymentServiceOpenFeign.getPaymentByIdTimeout();
     }
 
