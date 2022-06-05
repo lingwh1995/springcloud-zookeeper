@@ -1,0 +1,61 @@
+SpringCloud整合Zookeeper搭建步骤
+注册中心搭建
+    1.官网下载Zookeeper注册中心
+    2.配置环境变量
+    3.启动zookeeper
+    4.输入命令查看注册的服务:
+        ls /services
+服务消费端和服务提供端搭建
+    1>.pom.xml引入依赖
+         <dependencies>
+             <dependency>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-starter-web</artifactId>
+             </dependency>
+             <dependency>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-starter-actuator</artifactId>
+             </dependency>
+             <!--引入公共的工程-->
+             <dependency>
+                 <groupId>org.openatom</groupId>
+                 <artifactId>springcloud-api-commons</artifactId>
+             </dependency>
+             <dependency>
+                 <groupId>org.springframework.cloud</groupId>
+                 <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
+             </dependency>
+         </dependencies>
+    2>.编写yml
+        server:
+          port: 80
+
+        spring:
+          application:
+            name: SPRINGCLOUD-CONSUMER-LOADBALANCE-DEFAULT-ORDER80  #注意:服务名不要出现_
+          devtools:
+            restart:
+              enabled: true
+          logging:
+            level: info
+          cloud:
+            zookeeper:
+              connect-string: 192.168.0.2:2181
+
+        #服务提供方信息
+        service:
+          provider:
+            name: SPRINGCLOUD-PROVIDER-PAYMENT-SERVICE-CLUSTER  #服务提供方名称
+            url: http://${service.provider.name} #服务提供方调用地址
+
+    3>.编写主启动类并添加注解
+        @EnableDiscoveryClient
+        @SpringBootApplication
+        public class PaymentServiceProviderHystrixClusterNode8004 {
+
+            public static void main(String[] args) {
+                SpringApplication.run(PaymentServiceProviderHystrixClusterNode8004.class, args);
+            }
+        }
+    4.访问地址
+        http://localhost/consumer/payment/get/1

@@ -1,0 +1,77 @@
+1.引入依赖
+    注意:同搭建 Zookeeper服务提供端/服务消费端 所需依赖一样,不需要引入任何额外的依赖,SpringCloud自身就有负载均衡相关组件
+     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!--引入公共的工程-->
+        <dependency>
+            <groupId>org.openatom</groupId>
+            <artifactId>springcloud-api-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
+        </dependency>
+    </dependencies>
+2.编写YML文件
+    server:
+      port: 80
+
+    spring:
+      application:
+        name: SPRINGCLOUD-CONSUMER-HYSTRIX-LOADBALANCE-OPENFEIGN-CONFIGURATION-ORDER80 #注意:服务名不要出现_
+      devtools:
+        restart:
+          enabled: true
+      logging: #Spring运行日志配置
+        level: info
+      cloud:
+        zookeeper:
+          connect-string: 192.168.0.2:2181
+
+    #通过对Ribbon的配置实现对OpenFeign的配置
+    SPRINGCLOUD-PROVIDER-HYSTRIX-PAYMENT-SERVICE-CLUSTER: #服务提供方名称
+      ribbon:
+        NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule  #Ribbon负载均衡规则类所在的路径,自带七种规则,也可以是自定位规则的类所在的路径
+    #对OpenFeign进行单独配置
+    feign:
+      client:
+        config:
+          #这里填具体的服务名称（也可以填default，表示对所有服务生效）
+          SPRINGCLOUD-PROVIDER-HYSTRIX-PAYMENT-SERVICE-CLUSTER:  #服务提供方名称
+            #connectTimeout和readTimeout这两个得一起配置才会生效
+            connectTimeout: 10000  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+            readTimeout: 10000   #指的是建立连接后从服务器读取到可用资源所用的时间
+      hystrix:
+        enabled: true   #是否全局启动hystrix
+    hystrix:
+      command:
+        default:
+          execution:
+            isolation:
+              thread:
+                timeoutInMilliseconds: 10000 # 设置hystrix的默认熔断超时时间为10000ms
+    logging: #OpenFeign增强日志配置
+      level:
+        org.openatom.springcloud.services.PaymentServiceHystrixOpenFeign: debug  #OpenFeign日志以什么级别监控哪个接口
+
+3.给容器中注入RestTemplate
+    @Configuration
+    public class ApplicationContextConfig {
+        @Bean
+        //必须加这个注解,不加这个注解访问会报错
+        @LoadBalanced
+        public RestTemplate getRestTemplate(){
+            return new RestTemplate();
+        }
+    }
+3.访问地址:
+    访问路径:http://localhost/consumer/payment/get/1
+4.测试负载均衡效果
+    轮询调用

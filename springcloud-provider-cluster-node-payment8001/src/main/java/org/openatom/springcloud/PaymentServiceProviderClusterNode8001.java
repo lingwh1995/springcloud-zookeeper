@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 支付接口提供者
- *  使用Eureka作为注册中心
+ *  使用Zookeeper作为注册中心
  *  查看是否将服务注册进了Zookeeper:
  *      输入命令:ls /services
  *      结果为:[spring-cloud-payment-service]

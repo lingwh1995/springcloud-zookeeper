@@ -22,11 +22,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  *      2022-06-01 03:51:37.176 DEBUG 16792 --- [p-nio-80-exec-1] o.o.s.services.PaymentServiceOpenFeign   : [PaymentServiceOpenFeign#getPaymentById] {"code":200,"message":"查询成功,serverPort:  8006","data":{"id":1,"serial":"15646546546"}}
  *      2022-06-01 03:51:37.176 DEBUG 16792 --- [p-nio-80-exec-1] o.o.s.services.PaymentServiceOpenFeign   : [PaymentServiceOpenFeign#getPaymentById] <--- END HTTP (94-byte body)
  */
-@EnableDiscoveryClient //添加@EnableEurekaClient这个注解后可以把当前服务也注册到注册中心,但是不加这个注解依然可以完成微服务的调用
+@EnableDiscoveryClient //待测试:添加@EnableDiscoveryClient这个注解后可以把当前服务也注册到注册中心,但是不加这个注解依然可以完成微服务的调用
 @SpringBootApplication
 @EnableFeignClients
 public class OrderServiceConsumerLoadBalanceOpenFeignHardcode80 {
     public static void main(String[] args) {
-            SpringApplication.run(OrderServiceConsumerLoadBalanceOpenFeignHardcode80.class, args);
+        SpringApplication.run(OrderServiceConsumerLoadBalanceOpenFeignHardcode80.class, args);
     }
 }

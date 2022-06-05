@@ -14,14 +14,29 @@ import org.springframework.web.bind.annotation.RequestBody;
  * OpenFeign硬编码实现远程调用
  */
 @Component
-@FeignClient(name="SPRINGCLOUD-PROVIDER-PAYMENT-SERVICE-CLUSTER",fallback = PaymentServiceHystrixOpenFeignImpl.class)
+@FeignClient(name="SPRINGCLOUD-PROVIDER-HYSTRIX-PAYMENT-SERVICE-CLUSTER",fallback = PaymentServiceHystrixOpenFeignImpl.class)
 public interface PaymentServiceHystrixOpenFeign {
+    /**
+     * 没有进行服务降级和熔断的方法
+      * @param payment
+     * @return
+     */
     @PostMapping(value = "/provider/payment/create")
     CommonResult create(@RequestBody Payment payment);
 
+    /**
+     * 没有进行服务降级和熔断的方法
+     * @param id
+     * @return
+     */
     @GetMapping(value = "/provider/payment/ok/get/{id}")
     CommonResult<Payment> getPaymentByIdOk(@PathVariable("id") Long id);
 
+    /**
+     * 没有进行服务降级和熔断的方法
+     * @param id
+     * @return
+     */
     @GetMapping(value = "/provider/payment/timeout/get/{id}")
     CommonResult<Payment> getPaymentByIdTimeout(@PathVariable("id") Long id);
 
