@@ -33,7 +33,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  *          -Denv=PRO -Dapollo.cacheDir=D:\repository\cache\apollo -Dapollo.cluster=DEFAULT
  */
 @EnableApolloConfig
-@EnableDiscoveryClient  //添加@EnableEurekaClient好像没什么用,但是还是加上
+@EnableDiscoveryClient
 @SpringBootApplication
 @EnableFeignClients
 public class OrderServiceConsumerApolloLoadBalanceOpenFeignConfiguration80 {

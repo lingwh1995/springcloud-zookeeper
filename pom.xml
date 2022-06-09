@@ -31,6 +31,8 @@
         <module>springcloud-consumer-hystrix-loadbalance-openfeign-configuration-order80</module>
         <!--Zookeeper版服务消费者:1.使用OpenFeign实现负载均衡 2.使用了apollo配置中心-->
         <module>springcloud-consumer-apollo-loadbalance-openfeign-configuration-order80</module>
+        <!--Zookeeper版服务消费者:1.使用SpringCloud默认负载均衡 2.使用了Sleuth和Zipkin -->
+        <module>springcloud-consumer-sleuth_zipkin-loadbalance-default-order80</module>
 
         <!--Zookeeper版服务提供者集群:服务提供者节点1-8001节点-->
         <module>springcloud-provider-cluster-node-payment8001</module>
@@ -40,6 +42,10 @@
         <module>springcloud-provider-hystrix-cluster-node-payment8003</module>
 		<!--Zookeeper版服务提供者集群:服务提供者节点2(带有熔断机制)-8004-->
         <module>springcloud-provider-hystrix-cluster-node-payment8004</module>
+        <!--Zookeeper版服务提供者集群:服务提供者节点1-8005:1.默认负载均衡模式 2.使用了Sleuth和Zipkin-->
+        <module>springcloud-provider-sleuth_zipkin-cluster-node-payment8005</module>
+        <!--Zookeeper版服务提供者集群:服务提供者节点1-8006:1.默认负载均衡模式 2.使用了Sleuth和Zipkin-->
+        <module>springcloud-provider-sleuth_zipkin-cluster-node-payment8006</module>
 
 		<!--SpringCloud服务降级、服务熔断监控:监控单节点版-->
         <module>springcloud-mointor-hystrix-dashboard9001</module>
