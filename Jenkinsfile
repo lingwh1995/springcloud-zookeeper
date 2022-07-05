@@ -16,8 +16,8 @@ pipeline {
       steps {
         echo '正在推送文件...'
         echo '${GIT_COMMIT_MSG}'
-        sh 'git fetch https://lingwh1995:04cacc5f135e93b1ed679462a55260b7@gitee.com/lingwh1995/springcloud-zookeeper.git'
-        sh 'git push -f https://lingwh1995:04cacc5f135e93b1ed679462a55260b7@gitee.com/lingwh1995/springcloud-zookeeper.git HEAD:master'
+        sh 'git fetch https://lingwh1995:${GITEE_TOKEN}@gitee.com/lingwh1995/springcloud-zookeeper.git'
+        sh 'git push -f https://lingwh1995:${GITEE_TOKEN}@gitee.com/lingwh1995/springcloud-zookeeper.git HEAD:master'
         //sh 'git fetch https://lingwh1995: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@github.com/lingwh1995/springcloud-zookeeper.git'
         //sh 'git push -f https://lingwh1995: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@github.com/lingwh1995/springcloud-zookeeper.git HEAD:master'
         echo '完成文件推送...'
